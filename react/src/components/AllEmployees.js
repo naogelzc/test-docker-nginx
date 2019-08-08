@@ -28,7 +28,7 @@ class AllEmployees extends React.Component {
 
 class Person extends React.Component {
   render() {
-    return <li>{this.props.id + " - " + this.props.first_name + " " + this.props.last_name + " - " + this.props.dob  + " - " +  this.props.phone_number}</li>;
+    return <li><a>{this.props.id + " - " + this.props.first_name + " " + this.props.last_name + " - " + this.props.dob  + " - " +  this.props.phone_number}</a></li>;
   }
 }
 export default AllEmployees;
