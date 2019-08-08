@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
+import './../App.css';
 
-class App extends React.Component {
+class AllEmployees extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -9,17 +9,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    fetch('http://localhost/get-api'
-    ,
-    {
-      method:'POST',
-      headers:{
-         'Content-Type': 'application/json'
-      },
-      body:JSON.stringify({
-        ID:'1000'
-      })
-    })
+    fetch('http://localhost/api/Employees')
     .then((r)=>r.json()
     .then((data)=>{
       this.setState({ persons: data });
@@ -41,4 +31,4 @@ class Person extends React.Component {
     return <li>{this.props.id + " - " + this.props.first_name + " " + this.props.last_name + " - " + this.props.dob  + " - " +  this.props.phone_number}</li>;
   }
 }
-export default App;
+export default AllEmployees;

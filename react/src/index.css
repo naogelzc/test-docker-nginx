@@ -1,6 +1,8 @@
 body {
   color: #111111;
   font-family: 'Quicksand', sans-serif;
+  position: relative;
+  margin-left: 35%; 
 }
 
 code {
