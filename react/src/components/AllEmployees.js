@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './../App.css';
 
 class AllEmployees extends React.Component {
@@ -28,7 +29,7 @@ class AllEmployees extends React.Component {
 
 class Person extends React.Component {
   render() {
-    return <li><a>{this.props.id + " - " + this.props.first_name + " " + this.props.last_name + " - " + this.props.dob  + " - " +  this.props.phone_number}</a></li>;
+    return <Link to={{ pathname:'/SearchById' , state:{ id: this.props.id }}}><li>{this.props.id + " - " + this.props.first_name + " " + this.props.last_name + " - " + this.props.dob  + " - " +  this.props.phone_number}</li></Link>;
   }
 }
 export default AllEmployees;

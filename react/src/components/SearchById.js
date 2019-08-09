@@ -1,15 +1,29 @@
 import React, {Component} from 'react'
  
  // default search value.
-    let searchValue = ""
+    let searchValue = "1";
  
  class App extends Component {
      constructor(props) {
         super(props)
-        this.state = {user: null}
+        const value = this.props.location.state
+        if(typeof value === 'undefined'){
+            this.state = {user : null, inputValue : ""}
+        }else{
+            this.state = {
+               inputValue : value.id,
+               user : null
+            }
+            
+        }
         this.handlePostJSON = this.handlePostJSON.bind(this)
  }
- 
+   componentDidMount(){
+      if(searchValue==null)
+         return null
+      else
+         document.getElementById("submit").click()
+   }
      handlePostJSON() {
         let formData = new FormData();
         formData.append('ID',searchValue);
@@ -28,12 +42,8 @@ import React, {Component} from 'react'
      render() {
         return (
          <div>
-             <SearchForm />
-             <input
-                type="button"
-                value="Submit"
-                onClickCapture={this.handlePostJSON}
-             />
+             <SearchForm inputValue = {this.state.inputValue}/>
+             <input id="submit" type="button" value="Submit" onClickCapture={this.handlePostJSON}/>
             {this.state.user && (
               <ul>
                 <li>ID: {this.state.user.id}</li>
@@ -51,7 +61,7 @@ import React, {Component} from 'react'
      class SearchForm extends React.Component {
         constructor(props) {
             super(props);
-            this.state = {value: searchValue};
+            this.state = {value: this.props.inputValue};
             this.handleChange = this.handleChange.bind(this);
         }
      
