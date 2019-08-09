@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
  
  // default search value.
-    let searchValue = "1";
+    let searchValue;
  
  class App extends Component {
      constructor(props) {
@@ -40,9 +40,14 @@ import React, {Component} from 'react'
      }
  
      render() {
+        let defaultValue;
+        if(this.state.inputValue==="")
+            defaultValue = "1"
+        else
+            defaultValue = this.state.inputValue
         return (
          <div>
-             <SearchForm inputValue = {this.state.inputValue}/>
+             <SearchForm inputValue = {defaultValue}/>
              <input id="submit" type="button" value="Submit" onClickCapture={this.handlePostJSON}/>
             {this.state.user && (
               <ul>

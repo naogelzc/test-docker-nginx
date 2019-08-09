@@ -23,13 +23,7 @@ class AllEmployees extends React.Component {
     Object.keys(json).forEach(function(key) {
       arr.push(json[key]);
     });
-    return <ul>{arr.map(item => <Person key={item.id} id={item.id} first_name={item.first_name} last_name={item.last_name} dob={item.dob} phone_number={item.phone_number} />)}</ul>;
-  }
-}
-
-class Person extends React.Component {
-  render() {
-    return <Link to={{ pathname:'/SearchById' , state:{ id: this.props.id }}}><li>{this.props.id + " - " + this.props.first_name + " " + this.props.last_name + " - " + this.props.dob  + " - " +  this.props.phone_number}</li></Link>;
+    return <ul>{arr.map(item => <Link to={{ pathname:'/SearchById' , state:{ id: item.id }}}><li>{item.id + " - " + item.first_name + " " + item.last_name + " - " + item.dob  + " - " +  item.phone_number}</li></Link>)}</ul>;
   }
 }
 export default AllEmployees;
