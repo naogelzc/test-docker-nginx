@@ -3,7 +3,7 @@ services:
     web-router: 
       build:
         context: ./
-        dockerfile: Dockerfile-web-router
+        dockerfile: Dockerfile
       restart: always
       ports:
         - "80:80"
@@ -27,26 +27,28 @@ services:
         testnginx:
           ipv4_address: 192.168.1.101
 
-    front-end:
+    frontend:
       build:
         context: ./react/
-        dockerfile: Dockerfile-front-end
+        dockerfile: Dockerfile
       restart: always
+      container_name: frontend
       volumes:
           - ./react/build :/usr/share/nginx/html
       ports: 
         - "8080:80"
       depends_on:
-        - api
+        - webapi
         - database
         - web-router
       networks:
         testnginx:
           ipv4_address: 192.168.1.102
 
-    api:
+    webapi:
         image: golang:latest
         restart: always
+        container_name: webapi
         ports:
           - "8081:8081"
         volumes:
