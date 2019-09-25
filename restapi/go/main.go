@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -158,7 +159,7 @@ var db *sql.DB
 func databasecon() {
 	connStr := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=%s",
-		"192.168.1.101", 5432, "postgres", "password1", "rest_api", "disable")
+		os.Getenv("DATABASE_HOST"), 5432, "postgres", "password1", "rest_api", "disable")
 
 	var err error
 

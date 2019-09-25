@@ -7,13 +7,11 @@ services:
       restart: always
       ports:
         - "80:80"
-      networks:
-        testnginx:
-          ipv4_address: 192.168.1.100
 
     database:
       image: postgres:latest
       restart: always
+      container_name: database
       environment:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: password1
@@ -23,9 +21,6 @@ services:
       volumes:
         - ./restapi/db/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
         - ./restapi/db/data.sql:/docker-entrypoint-initdb.d/2-data.sql
-      networks:
-        testnginx:
-          ipv4_address: 192.168.1.101
 
     frontend:
       build:
@@ -36,14 +31,11 @@ services:
       volumes:
           - ./react/build :/usr/share/nginx/html
       ports: 
-        - "8080:80"
+        - "8080:8080"
       depends_on:
         - webapi
         - database
         - web-router
-      networks:
-        testnginx:
-          ipv4_address: 192.168.1.102
 
     webapi:
         image: golang:latest
@@ -63,15 +55,5 @@ services:
         depends_on:
           - database
           - web-router
-        networks: 
-          testnginx:
-            ipv4_address: 192.168.1.103
-        
-networks:
-  testnginx:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-         - subnet: 192.168.1.0/24
-      
+        environment:
+          DATABASE_HOST: database
